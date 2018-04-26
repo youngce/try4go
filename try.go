@@ -28,11 +28,11 @@ func (t *try)Retry(attempt int,fn func()(interface{}, error),out interface{}) *t
 	if t.hasError(){
 		return t
 	}
-	return t.Then(fn,out).retryHelper(3,fn,out)
+	return t.Then(fn,out).retryHelper(attempt-1,fn,out)
 }
 
 func (t *try)retryHelper(attempt int,fn func()(interface{}, error),out interface{}) *try {
-	if !t.hasError(){
+	if !t.hasError()||attempt==0{
 		return t
 	}
 	_,err:=fn()
