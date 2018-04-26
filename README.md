@@ -23,6 +23,8 @@ golang
 
 try4go
 ```go
+    var db *sql.DB
+    var rows *sql.Rows
     try4go.New().Then(func() (interface{}, error) {
 		return sql.Open(...)
 	},db).Then(func() (interface{}, error) {
