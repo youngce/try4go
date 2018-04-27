@@ -31,11 +31,11 @@ func TestThen(t *testing.T) {
 
 	var isSuccess bool
 	try:=Empty()
-	newTry :=try.Then(func() (interface{}, error) {
+	newTry :=try.Then(func(interface{}) (interface{}, error) {
 		return false,errors.New("err1")
-	},isSuccess).Then(func() (interface{}, error) {
+	}).Then(func(interface{}) (interface{}, error) {
 		return true,errors.New("err1")
-	},isSuccess)
+	})
 
 	if !newTry.hasError(){
 		t.Fatal("the try should has error.")
@@ -51,11 +51,11 @@ func TestRetry3Times(t *testing.T) {
 	var attempt int
 	try:=Empty()
 
-	try.Retry(3,func() (interface{}, error) {
+	try.Retry(3,func(interface{}) (interface{}, error) {
 		attempt++
 
 		return attempt,errors.New("err1")
-	},attempt)
+	})
 
 	fmt.Println(attempt)
 	if attempt!=3{
@@ -70,14 +70,14 @@ func TestRetry3TimesButLastTimeSuccess(t *testing.T) {
 	var attempt int
 	try:=Empty()
 
-	r:=try.Retry(3,func() (interface{}, error) {
+	r:=try.Retry(3,func(interface{}) (interface{}, error) {
 		var err error
 		if attempt!=3{
 			err=errors.New("err")
 		}
 
 		return attempt,err
-	},attempt)
+	})
 
 	fmt.Println(attempt)
 	if !r.hasError(){
@@ -93,11 +93,11 @@ func TestRetry3TimesButAlreadyGotErrorBeforeRetryOpt(t *testing.T) {
 
 
 	try.err=errors.New("err")
-	try.Retry(3,func() (interface{}, error) {
+	try.Retry(3,func(interface{}) (interface{}, error) {
 
 
 		return attempt,nil
-	},attempt)
+	})
 
 	fmt.Println(attempt)
 	if !try.hasError(){
@@ -107,17 +107,8 @@ func TestRetry3TimesButAlreadyGotErrorBeforeRetryOpt(t *testing.T) {
 }
 
 func TestOnError(t *testing.T) {
-
-
-
-
-
-
-	//try.err=errors.New("err")
 	New(func() (interface{}, error) {
 		return nil,errors.New("err")
-	},nil).ThenWithOutCallBack(func() (error) {
-		return errors.New("err2")
 	}).OnError(func(err error) {
 		fmt.Println(err)
 	})

@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.1.0] - 2018-04-27
+
+### Changed
+- API改為Lambda風格
+
+
+### Removed
+
 ## [0.0.2] - 2018-04-27
 ### Added
 - 增加```ThenWithOutCallBack```
@@ -19,6 +27,8 @@
 try4go設計想法來自於scala中的[Try](https://www.scala-lang.org/api/2.12.4/scala/util/Try.html), 
 
 但遺憾的是...go中並沒有```generic```，無法實現出Scala中那樣優美的操作，但try4go仍然改善error handling處理方式。
+
+（以下為0.0.x版本）
 
 你可以參考以下的範例代碼:
 
