@@ -1,3 +1,18 @@
+# Change Log
+
+## [0.0.2] - 2018-04-27
+### Added
+- 增加```ThenWithOutCallBack```
+- ```Empty（）```取代原本的```New()```
+
+### Changed
+- 修改```New```參數，與```Then```相同
+### Fixed
+- ```OnError```無```err==nil```不執行
+
+### Removed
+
+
 # 簡介
 如果你覺得go原生的錯誤處理方式不夠優美，或許可以考慮使用try4go.
 

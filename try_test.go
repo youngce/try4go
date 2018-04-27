@@ -8,21 +8,21 @@ import (
 
 func TestNew(t *testing.T) {
 
-	if New().err!=nil{
+	if Empty().err!=nil{
 		t.Fatal("a new try's err should be nil.")
 	}
 
 }
 func TestHasError(t *testing.T) {
 
-	try:=New()
+	try:=Empty()
 
 	if try.hasError(){
 		t.Fatal("a new try's err shouldn't has error.")
 	}
 	try.err=errors.New("test err")
-	if try.hasError(){
-		t.Fatal("the try should has error.")
+	if !try.hasError(){
+		t.Fatal("the try shouldn't has error.")
 	}
 
 }
@@ -30,14 +30,14 @@ func TestThen(t *testing.T) {
 
 
 	var isSuccess bool
-	try:=New()
-	try.Then(func() (interface{}, error) {
+	try:=Empty()
+	newTry :=try.Then(func() (interface{}, error) {
 		return false,errors.New("err1")
 	},isSuccess).Then(func() (interface{}, error) {
 		return true,errors.New("err1")
 	},isSuccess)
 
-	if !try.hasError(){
+	if !newTry.hasError(){
 		t.Fatal("the try should has error.")
 	}
 	if isSuccess{
@@ -49,7 +49,7 @@ func TestRetry3Times(t *testing.T) {
 
 
 	var attempt int
-	try:=New()
+	try:=Empty()
 
 	try.Retry(3,func() (interface{}, error) {
 		attempt++
@@ -68,9 +68,9 @@ func TestRetry3TimesButLastTimeSuccess(t *testing.T) {
 
 
 	var attempt int
-	try:=New()
+	try:=Empty()
 
-	try.Retry(3,func() (interface{}, error) {
+	r:=try.Retry(3,func() (interface{}, error) {
 		var err error
 		if attempt!=3{
 			err=errors.New("err")
@@ -80,7 +80,7 @@ func TestRetry3TimesButLastTimeSuccess(t *testing.T) {
 	},attempt)
 
 	fmt.Println(attempt)
-	if !try.hasError(){
+	if !r.hasError(){
 		t.Fatal("the try should have error")
 	}
 
@@ -89,7 +89,7 @@ func TestRetry3TimesButAlreadyGotErrorBeforeRetryOpt(t *testing.T) {
 
 
 	var attempt int
-	try:=New()
+	try:=Empty()
 
 
 	try.err=errors.New("err")
@@ -103,5 +103,23 @@ func TestRetry3TimesButAlreadyGotErrorBeforeRetryOpt(t *testing.T) {
 	if !try.hasError(){
 		t.Fatal("the try should have erro")
 	}
+
+}
+
+func TestOnError(t *testing.T) {
+
+
+
+
+
+
+	//try.err=errors.New("err")
+	New(func() (interface{}, error) {
+		return nil,errors.New("err")
+	},nil).ThenWithOutCallBack(func() (error) {
+		return errors.New("err2")
+	}).OnError(func(err error) {
+		fmt.Println(err)
+	})
 
 }
