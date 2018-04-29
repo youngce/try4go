@@ -32,6 +32,11 @@ func (t try) OnError(fn func(err error)) {
 		fn(t.err)
 	}
 }
+func (t try)OnSuccess(fn func(interface{}))  {
+	if !t.hasError(){
+		fn(t.succ)
+	}
+}
 func (t try)hasError()bool {
 	return t.err!=nil
 }
