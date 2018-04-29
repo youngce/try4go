@@ -76,16 +76,27 @@ try4go
 
 當你查看try4go中的Then方法可以發現當```try```中有error時，將不會繼續執行後續的函數。
 # Benchmark
-在```benchmark_test.go```中你可以找到測試的程式碼，try4go效能大概慢了原生go錯誤處理3.5倍，
+在```benchmark_test.go```中你可以找到測試的程式碼，try4go效能大概慢了原生go錯誤處理約5倍，
 
-主要原因在於try4go每次都需要做一次強轉型(Parse)，若不使用強轉型
+主要原因在於try4go每次```Then```都是創建一個新的```try```, 導致效能的消耗。
 ```
-BenchmarkTry4go-8                       20000000                67.0 ns/op
-BenchmarkPureGo-8                       100000000               17.6 ns/op
-BenchmarkTry4goWithoutParse-8           10000000                121 ns/op
+BenchmarkTry4goWithoutParse-8           20000000                93.3 ns/op
+BenchmarkTry4go-8                       20000000                91.2 ns/op
+BenchmarkPureGo-8                       100000000               17.5 ns/op
 
 ```
 # Change Log
+
+## [0.0.2] - 2018-04-27
+### Added
+- 增加```ThenWithOutCallBack```
+- ```Empty（）```取代原本的```New()```
+- benchmark測試
+- example
+
+### Fixed
+- ```OnError```無```err==nil```不執行
+
 
 ## [0.1.0] - 2018-04-27
 
@@ -96,14 +107,3 @@ BenchmarkTry4goWithoutParse-8           10000000                121 ns/op
 
 ### Removed
 
-## [0.0.2] - 2018-04-27
-### Added
-- 增加```ThenWithOutCallBack```
-- ```Empty（）```取代原本的```New()```
-
-### Changed
-- 修改```New```參數，與```Then```相同
-### Fixed
-- ```OnError```無```err==nil```不執行
-
-### Removed
