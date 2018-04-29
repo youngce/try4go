@@ -75,7 +75,16 @@ try4go
 ```
 
 當你查看try4go中的Then方法可以發現當```try```中有error時，將不會繼續執行後續的函數。
+# Benchmark
+在```benchmark_test.go```中你可以找到測試的程式碼，try4go效能大概慢了原生go錯誤處理3.5倍，
 
+主要原因在於try4go每次都需要做一次強轉型(Parse)，若不使用強轉型
+```
+BenchmarkTry4go-8                       20000000                67.0 ns/op
+BenchmarkPureGo-8                       100000000               17.6 ns/op
+BenchmarkTry4goWithoutParse-8           10000000                121 ns/op
+
+```
 # Change Log
 
 ## [0.1.0] - 2018-04-27

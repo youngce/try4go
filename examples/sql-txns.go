@@ -23,11 +23,7 @@ func main() {
 		id:=4
 		return in.(*sql.Stmt).Exec(id)
 	})
-	//execTried.Merge(txTried, func(kv try4go.Tuple2) (interface{}, error) {
-	//	tx:=kv.V2.(*sql.Tx)
-	//	return tx,tx.Commit()
-	//})
-	
+
 	execTried.OnError(func(err error) {
 		log.Error(err)
 		txTried.OnSuccess(func(i interface{}) {

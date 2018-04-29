@@ -30,6 +30,7 @@ func (t1 try) Then(op tryOp) try  {
 		return t1
 	}
 
+
 	return New(func() (interface{}, error) {
 		return op(t1.succ)
 	})

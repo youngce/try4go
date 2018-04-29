@@ -114,4 +114,42 @@ func TestOnError(t *testing.T) {
 	})
 }
 
+//func TestPerformanceBenchmark(t *testing.T)  {
+//	var times int
+//	var start time.Time
+//	var elapse int
+//	f1:= func() {
+//		i,err:=strconv.Atoi("1")
+//		if err==nil{
+//			times+=i
+//		}
+//	}
+//	f2:= func() {
+//		New(func() (interface{}, error) {
+//			return strconv.Atoi("1")
+//		}).OnSuccess(func(i interface{}) {
+//			times+=i.(int)
+//		})
+//	}
+//
+//
+//	start=time.Now()
+//	for i:=0;i<100;i++{
+//		f1()
+//	}
+//	log.Println("======go=====")
+//	elapse=time.Now().Nanosecond()-start.Nanosecond()
+//	log.Printf("%v ns",elapse)
+//
+//	times=0
+//	start=time.Now()
+//	for i:=0;i<100;i++{
+//		f2()
+//	}
+//	log.Println("======try4go=====")
+//	elapse=time.Now().Nanosecond()-start.Nanosecond()
+//	log.Printf("%v ns",elapse)
+//
+//
+//}
 
