@@ -112,5 +112,6 @@ func TestOnError(t *testing.T) {
 	}).OnError(func(err error) {
 		fmt.Println(err)
 	})
-
 }
+
+
