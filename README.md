@@ -5,8 +5,6 @@ try4go設計想法來自於scala中的[Try](https://www.scala-lang.org/api/2.12.
 
 但遺憾的是...go中並沒有```generic```，無法實現出Scala中那樣優美的操作，但try4go仍然改善error handling處理方式。
 
-（以下為0.0.x版本）
-
 你可以參考以下的範例代碼:
 
 golang
