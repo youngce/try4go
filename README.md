@@ -84,6 +84,16 @@ BenchmarkPureGo-8                       100000000               17.5 ns/op
 
 ```
 # Change Log
+## [0.1.0] - 2018-05-01
+### Added
+- ```Result() (interface{},error)```
+### Changed
+- API改為Lambda風格
+- OnSuccess() API
+
+
+### Removed
+
 
 ## [0.0.2] - 2018-04-27
 ### Added
@@ -96,12 +106,4 @@ BenchmarkPureGo-8                       100000000               17.5 ns/op
 - ```OnError```無```err==nil```不執行
 
 
-## [0.1.0] - 2018-04-27
-
-### Changed
-- API改為Lambda風格
-- OnSuccess() API
-
-
-### Removed
 

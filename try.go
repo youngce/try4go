@@ -52,6 +52,10 @@ func (t1 try) OnError(fn func(err error)) {
 		fn(t1.err)
 	}
 }
+func (t1 try) Result() (interface{},error) {
+	return t1.succ,t1.err
+}
+
 func (t1 try)OnSuccess(fn func(interface{}))  {
 	if !t1.hasError(){
 		fn(t1.succ)
