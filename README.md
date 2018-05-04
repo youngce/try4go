@@ -87,13 +87,12 @@ BenchmarkPureGo-8                       100000000               17.5 ns/op
 ## [0.1.0] - 2018-05-01
 ### Added
 - ```Result() (interface{},error)```
+- Add ```Err()``` and ```RecoverErr```
 ### Changed
 - API改為Lambda風格
 - OnSuccess() API
 
-
 ### Removed
-
 
 ## [0.0.2] - 2018-04-27
 ### Added
