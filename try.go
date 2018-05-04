@@ -35,6 +35,9 @@ func (t1 try) Then(op tryOp) try  {
 		return op(t1.succ)
 	})
 }
+func (t1 try) Err() error  {
+	return t1.err
+}
 func (t1 try) Merge(t2 try,op func(kv Tuple2) (interface{},error)) try{
 	if t1.hasError(){
 		return t1
